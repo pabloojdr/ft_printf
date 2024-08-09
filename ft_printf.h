@@ -6,12 +6,13 @@
 /*   By: pcampoy- <pcampoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 19:17:02 by pcampoy-          #+#    #+#             */
-/*   Updated: 2024/07/10 19:18:09 by pcampoy-         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:33:34 by pcampoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <unistd.h>
+# include <stdio.h>
 
 #endif
