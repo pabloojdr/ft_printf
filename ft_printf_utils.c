@@ -31,35 +31,68 @@ int	ft_putstr(char *str)
 	return (i);
 }
 
-int	ft_hexa(unsigned long int n)
+int digits(int n)
 {
-	char	*alph;
-	int		res;
+	int	count;
 
-	alph = "0123456789ABCDEF";
+	count = 0;
+	if (n < 0)
+	{
+		n = -n;
+		count++;
+	}
+
+	while (n >= 10)
+	{
+		n /= 10;
+		count++;
+	}
+	return (count + 1);
+}
+
+int	ft_putnumber(int n)
+{
+	char	d;
+	int	count;
+
+	count = digits(n);
+	if (n == -2147483648)
+	{
+		return (write(1, "-2147483648", 11), 11);
+	}
+	if (n < 0) {
+		write(1, "-", 1);
+		n = -n;
+	}
+	if (n >= 10)
+	{
+		ft_putnumber(n / 10);
+		ft_putnumber(n % 10);
+	} else
+	{
+		d = n + '0';
+		write(1, &d, 1);
+	}
+	return (count);
+}
+
+int	ft_hexa(unsigned long int n, char c)
+{
+	char			*alph;
+	static int		res;
+
+	res = 0;
+	if (c == 'x')
+		alph = "0123456789abcdef";
+	else if (c == 'X')
+		alph = "0123456789ABCDEF";
 	if (n <= 0)
 		return (0);
 	if (n > 0)
 	{
-		ft_hexa(n / 16);
+		ft_hexa(n / 16, c);
 		write(1, &alph[n % 16], 1);
 		res++;
 	}
 	return (res);
-}
-
-int	ft_putpointer(unsigned long int n)
-{
-	int	res;
-
-	write(1, "0x", 2);
-	res = 2;
-	res += ft_hexa(n);
-	return (res);
-}
-
-int main() {
-    void    *p;
-    ft_putpointer((unsigned long int) p);
-    printf("\n%p", p);
 }
