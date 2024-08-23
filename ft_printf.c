@@ -6,21 +6,21 @@
 /*   By: pcampoy- <pcampoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 19:39:04 by pcampoy-          #+#    #+#             */
-/*   Updated: 2024/07/10 19:42:50 by pcampoy-         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:36:35 by pcampoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_filter(char c, va_list *list) {
+int	ft_filter(char c, va_list *list)
+{
 	if (c == 'c')
 		return (ft_putchar(va_arg(*list, int)));
 	if (c == 's')
 		return (ft_putstr(va_arg(*list, char *)));
 	if (c == 'p')
 	{
-		write(1, "0x", 2);
-		return (ft_hexa(va_arg(*list, unsigned long int), 'x') + 2);
+		return (ft_putvoid(va_arg(*list, unsigned long long)));
 	}
 	if (c == 'd' || c == 'i')
 		return (ft_putnumber(va_arg(*list, int)));
@@ -36,21 +36,19 @@ int	ft_filter(char c, va_list *list) {
 	return (0);
 }
 
-int	ft_printf(char const *s, ...) {
-    va_list	list;
-    int	i;
-	int printed;
+int	ft_printf(char const *s, ...)
+{
+	va_list	list;
+	int		i;
+	int		printed;
 
 	i = 0;
 	printed = 0;
-    va_start(list, s);
+	va_start(list, s);
 	while (s[i] != 0)
 	{
 		if (s[i] == '%')
-		{
-			printed += ft_filter(s[i+1], &list);
-			i++;
-		}
+			printed += ft_filter(s[++i], &list);
 		else if (s[i])
 		{
 			printed += ft_putchar(s[i]);
@@ -63,24 +61,24 @@ int	ft_printf(char const *s, ...) {
 
 /* int main() {
 	printf("Prueba caracter:\n");
-	int i = ft_printf("%c", 'P');
+	int i = ft_printf("%c", '\0');
 	printf("\n");
-	int j = printf("%c", 'P');
+	int j = printf("%c", '\0');
 	printf("\n");
 	printf("mio: %i\nprintf: %i\n\n", i, j);
 
 	printf("Prueba string:\n");
-	i = ft_printf("%s", "Hola mundo");
+	i = ft_printf("%s", "\0");
 	printf("\n");
-	j = printf("%s", "Hola mundo");
+	j = printf("%s", "\0");
 	printf("\n");
 	printf("mio: %i\nprintf: %i\n\n", i, j);
 
 	printf("Prueba puntero:\n");
-	int m = 1800;
-	i = ft_printf("%p", &m);
+	//int m = 1800;
+	i = ft_printf("%p", (void *) 0);
 	printf("\n");
-	j = printf("%p", &m);
+	j = printf("%p", (void *) 0);
 	printf("\n");
 	printf("mio: %i\nprintf: %i\n\n", i, j);
 
@@ -106,9 +104,9 @@ int	ft_printf(char const *s, ...) {
 	printf("mio: %i\nprintf: %i\n\n", i, j);
 
 	printf("Prueba numero hexadecimal en minusculas:\n");
-	i = ft_printf("%x", 24032003);
+	i = ft_printf("%x", 0);
 	printf("\n");
-	j = printf("%x", 24032003);
+	j = printf("%x", 0);
 	printf("\n");
 	printf("mio: %i\nprintf: %i\n\n", i, j);
 

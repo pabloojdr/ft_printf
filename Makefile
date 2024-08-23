@@ -1,4 +1,4 @@
-CFILES = ft_printf.c ft_printf_utils.c ft_printf_unsigned.CFILES
+CFILES = ft_printf.c ft_printf_utils.c ft_printf_unsigned.c
 
 OFILES = $(CFILES:.c=.o)
 
@@ -21,4 +21,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re
